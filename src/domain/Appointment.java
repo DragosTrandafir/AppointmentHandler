@@ -2,10 +2,9 @@ package domain;
 
 import java.util.Objects;
 
-public class Appointment implements Identifiable<Integer>
+public class Appointment extends Entity
 {
     //private attributes
-    private int id;
     private String patientName;
     private String doctorName;
     private String hour;
@@ -13,7 +12,7 @@ public class Appointment implements Identifiable<Integer>
 
     //constructor
     public Appointment(int id, String patientName, String doctorName, String hour, String date){
-        this.id=id;
+        super(id);
         this.patientName = patientName;
         this.doctorName = doctorName;
         this.hour = hour;
@@ -49,20 +48,12 @@ public class Appointment implements Identifiable<Integer>
         this.date = date;
     }
 
-    @Override
-    public void setId(Integer id) {   //use Integer, not int
-        this.id=id;                   // it replaces ID and it represents the bigger object of int in the compliler
-    }
-    public Integer getId(){
-        return id;
-    }
-
     // checking if 2 objects are egual -> same data values & same bucket using hashCode
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Appointment that = (Appointment) o;
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        Appointment that = (Appointment) other;
         return id == that.id && Objects.equals(patientName, that.patientName) && Objects.equals(doctorName, that.doctorName) && Objects.equals(hour, that.hour) && Objects.equals(date, that.date);
     }
 
